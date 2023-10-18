@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TugasKelompok</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="greeting_login">Selamat Datang\nSilahkan Masuk ke dalam Aplikasi</string>
+</resources>
