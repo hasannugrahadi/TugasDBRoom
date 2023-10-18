@@ -18,8 +18,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selamat Datang"
-            android:textSize="24sp"/>
+            android:text="SELAMAT DATANG"
+            android:textStyle="bold"
+            android:textSize="22sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,15 +50,16 @@
             android:layout_marginTop="36dp"
             android:layout_marginHorizontal="24dp"
             android:backgroundTint="@color/orange_login"
-            android:text="LOGIN"/>
+            android:text="LOGIN"
+            android:textColor="@color/white"/>
 
         <TextView
             android:id="@+id/openRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Belum Mempunyai akun? Registrasi sekarang!"
-            android:textSize="14sp"/>
+            android:layout_marginTop="4dp"
+            android:text="Belum Mempunyai akun? Buat sekarang!"
+            android:textSize="15sp"/>
 
 
 </LinearLayout>
