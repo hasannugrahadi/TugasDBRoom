@@ -58,8 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Belum Mempunyai akun? Buat sekarang!"
+            android:text="Belum Mempunyai akun? Daftar sekarang!"
+            android:textColorHighlight="#177CF9"
+            android:textColorLink="@color/orange_login"
             android:textSize="15sp"/>
-
-
+        
 </LinearLayout>

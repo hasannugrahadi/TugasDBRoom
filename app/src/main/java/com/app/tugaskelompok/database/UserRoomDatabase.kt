@@ -19,7 +19,7 @@ abstract class UserRoomDatabase : RoomDatabase(){
             if (INSTANCE == null) {
                 synchronized(UserRoomDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
-                        UserRoomDatabase::class.java, "note_database")
+                        UserRoomDatabase::class.java, "user_database")
                         .build()
                 }
             }

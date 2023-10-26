@@ -2,21 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <LinearLayout
+        android:id="@+id/linear_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:padding="48dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/profile_char"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/ic_profile_circle"
+            android:textSize="72sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            tools:text="n"
+            tools:gravity="center"
+            tools:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            tools:text="nama_usename"/>
+
+        <TextView
+            android:id="@+id/profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            tools:text="username@local.com"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:backgroundTint="@color/orange_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/linear_profile"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
