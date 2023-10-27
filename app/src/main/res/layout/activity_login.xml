@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/material_dynamic_neutral_variant80"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
@@ -38,6 +39,7 @@
             android:drawableLeft="@drawable/baseline_people_alt_24"
             android:paddingLeft="20dp"
             android:layout_margin="8dp"
+            android:drawablePadding="15dp"
             android:hint="Username"
             android:background="@drawable/round_edit_text" />
 
@@ -51,6 +53,7 @@
             android:background="@drawable/round_edit_text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:drawablePadding="15dp"
             android:drawableRight="@drawable/baseline_remove_red_eye_24"
             android:layout_marginLeft="25dp"
             android:hint="Password" />
