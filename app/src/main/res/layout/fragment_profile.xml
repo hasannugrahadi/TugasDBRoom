@@ -12,14 +12,15 @@
         android:id="@+id/linear_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/profile_char"
@@ -50,18 +51,14 @@
             android:textSize="16sp"
             tools:text="username@local.com" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange2_login"
+            android:text="Logout" />
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:backgroundTint="@color/orange2_login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/linear_profile"/>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

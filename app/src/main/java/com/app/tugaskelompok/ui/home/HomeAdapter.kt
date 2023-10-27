@@ -18,17 +18,18 @@ import com.bumptech.glide.request.RequestOptions
 class HomeAdapter(private val users: MutableList<DataItem>) :
     RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
 
+    private val filteredUsers: MutableList<DataItem> = mutableListOf()
+    private var isFilterEmpty: Boolean = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
-        return ListViewHolder(
-            view
-        )
+        return ListViewHolder(view)
     }
 
     fun addUser(newUsers: DataItem) {
         users.add(newUsers)
-        notifyItemInserted(users.lastIndex)
+        notifyDataSetChanged()
     }
 
     fun clear() {
@@ -36,25 +37,53 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = users.size
+    override fun getItemCount(): Int = if (filteredUsers.isNotEmpty()) filteredUsers.size else users.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val user = users[position]
+        if (isFilterEmpty) {
+            // Tampilkan pesan jika hasil filter kosong
+            holder.tvUserName.text = ""
+            holder.tvEmail.text = ""
+            holder.ivAvatar.setImageResource(R.color.white)
+        } else {
+            // Tampilkan data user jika hasil filter tidak kosong
+            val user = if (filteredUsers.isNotEmpty()) filteredUsers[position] else users[position]
 
-        Glide.with(holder.itemView.context)
-            .load(user.avatar)
-            .apply(RequestOptions().override(80, 80).placeholder(R.drawable.icon_avatar))
-            .transform(CircleCrop())
-            .into(holder.ivAvatar)
+            Glide.with(holder.itemView.context)
+                .load(user.avatar)
+                .apply(RequestOptions().override(80, 80).placeholder(R.drawable.foo_logo))
+                .transform(CircleCrop())
+                .into(holder.ivAvatar)
 
-        holder.tvUserName.text = "${user.firstName} ${user.lastName}"
-        holder.tvEmail.text = user.email
+            holder.tvUserName.text = "${user.firstName} ${user.lastName}"
+            holder.tvEmail.text = user.email
+        }
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvUserName: TextView = itemView.findViewById(R.id.itemName)
         var tvEmail: TextView = itemView.findViewById(R.id.itemEmail)
         var ivAvatar: ImageView = itemView.findViewById(R.id.itemAvatar)
+    }
 
+    fun filterUsers(query: String) {
+        filteredUsers.clear()
+        for (user in users) {
+            if (user.firstName?.toLowerCase()?.contains(query) == true ||
+                user.lastName?.toLowerCase()?.contains(query) == true ||
+                user.email?.toLowerCase()?.contains(query) == true
+            ) {
+                filteredUsers.add(user)
+            }
+        }
+        isFilterEmpty = filteredUsers.isEmpty()
+
+        notifyDataSetChanged()
+    }
+
+    fun resetFilter() {
+        filteredUsers.clear()
+        notifyDataSetChanged()
     }
 }
+
