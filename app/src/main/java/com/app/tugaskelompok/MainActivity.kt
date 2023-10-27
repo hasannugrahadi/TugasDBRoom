@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.app.tugaskelompok.databinding.ActivityMainBinding
+import com.app.tugaskelompok.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +32,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val userData = LoginActivity.SharedPreferencesUtil.getLoggedInUser(this)
+        val userName = userData.first
+        val userEmail = userData.second
+
+
     }
 }
