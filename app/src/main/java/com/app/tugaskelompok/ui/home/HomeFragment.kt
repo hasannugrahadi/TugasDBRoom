@@ -47,10 +47,13 @@ class HomeFragment : Fragment() {
         return root
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    val searchView = binding.searchView
 
     private fun getUser() {
         val client = apiConfig.getApiService().getListUsers("1")

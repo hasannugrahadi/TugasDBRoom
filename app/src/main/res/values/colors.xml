@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange_login">#F99417</color>
+    <color name="orange2_login">#DFBB8F</color>
 </resources>
