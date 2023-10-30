@@ -10,6 +10,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.method.PasswordTransformationMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Button
@@ -44,6 +45,8 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.login_password)
         loginButton = findViewById(R.id.login_button)
         registerText = findViewById(R.id.openRegister)
+
+        passwordEditText.transformationMethod = AsteriskPasswordTransformationMethod()
 
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
@@ -118,6 +121,25 @@ class LoginActivity : AppCompatActivity() {
 
             return Pair(userName, userEmail)
         }
+    }
+}
+class AsteriskPasswordTransformationMethod : PasswordTransformationMethod() {
+
+    override fun getTransformation(source: CharSequence, view: View): CharSequence {
+        return PasswordCharSequence(source)
+    }
+
+    inner class PasswordCharSequence (private val source: CharSequence) : CharSequence {
+
+        override val length: Int
+            get() = source.length
+
+        override fun get(index: Int): Char = '*'
+
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
+            return source.subSequence(startIndex, endIndex)
+        }
+
     }
 
 }

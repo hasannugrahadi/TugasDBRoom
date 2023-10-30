@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
         adapter = HomeAdapter(mutableListOf())
 
         recyclerView.adapter = adapter
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -51,20 +52,17 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-        getUser()
 
-        val searchView = binding.searchView // Inisialisasi searchView di sini
+
+        getUser()
 
         return root
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     private fun getUser() {
         val client = apiConfig.getApiService().getListUsers("1")
@@ -80,13 +78,9 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseUser>, t: Throwable) {
-
-                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(activity, t.message, Toast.LENGTH_SHORT).show()
                 t.printStackTrace()
             }
-
-
         })
     }
 }

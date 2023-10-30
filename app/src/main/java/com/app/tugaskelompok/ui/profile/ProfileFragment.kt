@@ -21,7 +21,6 @@ class ProfileFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var profileChar: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,

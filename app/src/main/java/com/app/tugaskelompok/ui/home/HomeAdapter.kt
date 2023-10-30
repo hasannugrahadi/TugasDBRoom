@@ -24,12 +24,14 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
-        return ListViewHolder(view)
+        return ListViewHolder(
+            view
+        )
     }
 
     fun addUser(newUsers: DataItem) {
         users.add(newUsers)
-        notifyDataSetChanged()
+        notifyItemInserted(users.lastIndex)
     }
 
     fun clear() {
@@ -41,17 +43,15 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         if (isFilterEmpty) {
-            // Tampilkan pesan jika hasil filter kosong
             holder.tvUserName.text = ""
             holder.tvEmail.text = ""
             holder.ivAvatar.setImageResource(R.color.white)
         } else {
-            // Tampilkan data user jika hasil filter tidak kosong
             val user = if (filteredUsers.isNotEmpty()) filteredUsers[position] else users[position]
 
             Glide.with(holder.itemView.context)
                 .load(user.avatar)
-                .apply(RequestOptions().override(80, 80).placeholder(R.drawable.foo_logo))
+                .apply(RequestOptions().override(80, 80).placeholder(R.drawable.icon_avatar))
                 .transform(CircleCrop())
                 .into(holder.ivAvatar)
 
@@ -64,8 +64,8 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
         var tvUserName: TextView = itemView.findViewById(R.id.itemName)
         var tvEmail: TextView = itemView.findViewById(R.id.itemEmail)
         var ivAvatar: ImageView = itemView.findViewById(R.id.itemAvatar)
-    }
 
+    }
     fun filterUsers(query: String) {
         filteredUsers.clear()
         for (user in users) {
@@ -86,4 +86,3 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
         notifyDataSetChanged()
     }
 }
-

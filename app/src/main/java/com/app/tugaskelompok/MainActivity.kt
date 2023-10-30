@@ -33,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val userData = LoginActivity.SharedPreferencesUtil.getLoggedInUser(this)
-        val userName = userData.first
-        val userEmail = userData.second
-
 
     }
 }
