@@ -25,6 +25,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MotionActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>

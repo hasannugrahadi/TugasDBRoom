@@ -59,6 +59,8 @@ dependencies {
 
     //material
     implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
 
     //room
     val room_version = "2.6.0"
