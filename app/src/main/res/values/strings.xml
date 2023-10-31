@@ -4,4 +4,7 @@
     <string name="title_profile">Profile</string>
     <string name="title_notifications">Notifications</string>
     <string name="greeting_login">Selamat Datang\nSilahkan Masuk ke dalam Aplikasi</string>
+    <string name="clientid"> Key nya ada di komentar di bawah, takut ke detect github</string>
 </resources>
+
+<!--//   320587529564-2gmufnb9ai8af9fmn990pj4hh7bdt1eo.apps.googleusercontent.com     ///-->

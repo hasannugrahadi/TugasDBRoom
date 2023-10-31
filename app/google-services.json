@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "320587529564",
+    "project_id": "praktisi-ceb6f",
+    "storage_bucket": "praktisi-ceb6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320587529564:android:1d815a583f6f6317a29599",
+        "android_client_info": {
+          "package_name": "com.app.tugaskelompok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320587529564-1a4jk482vf015j86eecb5tfmp0dm2g9o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.tugaskelompok",
+            "certificate_hash": "354c77362d5de50e949b9ef37038f9ad0c001afc"
+          }
+        },
+        {
+          "client_id": "320587529564-2gmufnb9ai8af9fmn990pj4hh7bdt1eo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDWZKr0hlv4dlLlVpHBFEb-rBv65aRBBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320587529564-2gmufnb9ai8af9fmn990pj4hh7bdt1eo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
