@@ -5,6 +5,8 @@
     <string name="title_notifications">Notifications</string>
     <string name="greeting_login">Selamat Datang\nSilahkan Masuk ke dalam Aplikasi</string>
 
+    <string name="clientid"> Key nya ada di komentar di bawah, takut ke detect github</string>
+
     <string name="title_menu_1">Belajar Bersama Tentor Yang Ramah</string>
     <string name="title_menu_2">Jadwal Belajar Yang Bisa Kamu Atur Sendiri</string>
     <string name="title_menu_3">Penilain Menggunakan Standar Internasional</string>
@@ -23,3 +25,4 @@
     <string name="gambar_alumni_terpercaya">Gambar Alumni Universitas</string>
     <string name="gambar_dicoding">Toga Logo</string>
 </resources>
+
