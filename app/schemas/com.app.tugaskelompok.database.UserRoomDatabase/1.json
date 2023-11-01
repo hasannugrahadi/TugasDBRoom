@@ -6,7 +6,7 @@
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_app` TEXT, `password` TEXT, `user_github` TEXT, `email` TEXT, `regi` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_app` TEXT, `password` TEXT, `user_github` TEXT, `email` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -35,12 +35,6 @@
           {
             "fieldPath": "email",
             "columnName": "email",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "nim",
-            "columnName": "nim",
             "affinity": "TEXT",
             "notNull": false
           }

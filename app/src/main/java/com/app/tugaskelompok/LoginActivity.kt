@@ -1,4 +1,5 @@
 package com.app.tugaskelompok
+
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,37 +17,41 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.app.tugaskelompok.database.UserDao
 import com.app.tugaskelompok.database.UserRoomDatabase
-import com.app.tugaskelompok.databinding.ActivityLoginBinding
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var usernameEditText: EditText
-    private lateinit var auth: FirebaseAuth
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var registerText: TextView
-//    private lateinit var GoogleSignInClient: GoogleSignInClient;
+
+    private val mAuth = FirebaseAuth.getInstance()
+
     private lateinit var database: UserRoomDatabase
     private lateinit var userDao: UserDao
+
+    private val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
+        name = "user"
+    )
+    private val USER_EMAIL = stringPreferencesKey("user_email")
+    private val USER_PASSWORD = stringPreferencesKey("user_password")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        auth = Firebase.auth
+
         database = UserRoomDatabase.getDatabase(applicationContext)
         userDao = database.UserDao()
 
@@ -57,49 +62,37 @@ class LoginActivity : AppCompatActivity() {
 
         passwordEditText.transformationMethod = AsteriskPasswordTransformationMethod()
 
-        binding.loginButton.setOnClickListener {
+        loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
-            CoroutineScope(Dispatchers.IO).launch {
-                val user = userDao.getUser(username, password)
-                val email = userDao.getEmail(username)
-                withContext(Dispatchers.Main) {
-                    if (user != null) {
-                        Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
-                        SharedPreferencesUtil.saveLoggedInUser(this@LoginActivity, username, email)
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            saveUserToPreferencesStore(username, password)
+                        }
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
-
                         finish()
                     } else {
-                        Toast.makeText(applicationContext, "Username atau password salah", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
-            val  email = binding.loginUsername.text.toString()
-            val  pw = binding.loginPassword.text.toString()
-            auth.signInWithEmailAndPassword(email,pw).addOnCompleteListener {
-                if(it.isSuccessful){
-Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
-                }
-            }
-            BeginSignInRequest.builder()
-                .setGoogleIdTokenRequestOptions(
-                    BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        // Your server's client ID, not your Android client ID.
-                        .setServerClientId(getString(R.string.clientid))
-                        // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                .build()
-
         }
         registerText.makeLinks(
             Pair("Daftar sekarang!", View.OnClickListener {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
             }))
+    }
+
+
+      private suspend fun saveUserToPreferencesStore(username : String, password : String) {
+        userPreferencesDataStore.edit { preferences ->
+            preferences[USER_EMAIL] = username
+            preferences[USER_PASSWORD] = password
+        }
     }
 
     private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
@@ -132,23 +125,7 @@ Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
             LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
         this.setText(spannableString, TextView.BufferType.SPANNABLE)
     }
-    object SharedPreferencesUtil {
-        fun saveLoggedInUser(context: Context, username: String, email: String) {
-            val sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("userName", username)
-            editor.putString("userEmail", email)
-            editor.apply()
-        }
 
-        fun getLoggedInUser(context: Context): Pair<String?, String?> {
-            val sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE)
-            val userName = sharedPreferences.getString("userName", null)
-            val userEmail = sharedPreferences.getString("userEmail", null)
-
-            return Pair(userName, userEmail)
-        }
-    }
 }
 class AsteriskPasswordTransformationMethod : PasswordTransformationMethod() {
 

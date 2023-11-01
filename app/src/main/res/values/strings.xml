@@ -5,8 +5,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="greeting_login">Selamat Datang\nSilahkan Masuk ke dalam Aplikasi</string>
 
-    <string name="clientid"> Key nya ada di komentar di bawah, takut ke detect github</string>
-
     <string name="title_menu_1">Belajar Bersama Tentor Yang Ramah</string>
     <string name="title_menu_2">Jadwal Belajar Yang Bisa Kamu Atur Sendiri</string>
     <string name="title_menu_3">Penilain Menggunakan Standar Internasional</string>
@@ -17,7 +15,7 @@
     <string name="desc_menu_3">Standar internasional yang dapat mengukur kemampuan kamu dengan orang lain diseluruh dunia.</string>
     <string name="desc_menu_4">Banyaknya alumni yang tersebar membuat kami bisa mengukur kemampuanmu untuk masuk PTN yang diinginkan.</string>
 
-    <string name="learn_now">Gapai Mimpimu Sekarang</string>
+    <string name="learn_now">Mulai Sekarang</string>
 
     <string name="gambar_kurikulum_global">Gambar Tentor Mengajar</string>
     <string name="gambar_belajar_fleksibel">Gambar Jam Dinding</string>
@@ -25,4 +23,3 @@
     <string name="gambar_alumni_terpercaya">Gambar Alumni Universitas</string>
     <string name="gambar_dicoding">Toga Logo</string>
 </resources>
-

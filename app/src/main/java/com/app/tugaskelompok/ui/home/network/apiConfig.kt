@@ -10,14 +10,19 @@ class apiConfig {
         fun getApiService(): ApiService {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder()
+            OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
-
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://reqres.in/")
+                .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
+                .client(OkHttpClient.Builder().addInterceptor { chain ->
+                    val request = chain.request()
+                        .newBuilder()
+                        .addHeader("Authorization", "Bearer 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")
+                        .build()
+                    chain.proceed(request)
+                }.build())
                 .build()
             return retrofit.create(ApiService::class.java)
         }

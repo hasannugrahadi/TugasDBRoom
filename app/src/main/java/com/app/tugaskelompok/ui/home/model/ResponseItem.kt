@@ -2,7 +2,19 @@ package com.app.tugaskelompok.ui.home.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseUser(
+data class ResponseItem(
+
+    @field:SerializedName("gists_url")
+    val gistsUrl: String? = null,
+
+    @field:SerializedName("repos_url")
+    val reposUrl: String? = null,
+
+    @field:SerializedName("following_url")
+    val followingUrl: String? = null,
+
+    @field:SerializedName("starred_url")
+    val starredUrl: String? = null,
 
     @field:SerializedName("login")
     val login: String? = null,
@@ -15,6 +27,12 @@ data class ResponseUser(
 
     @field:SerializedName("url")
     val url: String? = null,
+
+    @field:SerializedName("subscriptions_url")
+    val subscriptionsUrl: String? = null,
+
+    @field:SerializedName("received_events_url")
+    val receivedEventsUrl: String? = null,
 
     @field:SerializedName("avatar_url")
     val avatarUrl: String? = null,

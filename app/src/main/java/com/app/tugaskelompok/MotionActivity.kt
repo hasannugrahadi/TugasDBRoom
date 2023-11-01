@@ -15,15 +15,18 @@ class MotionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_motion)
+
+        motionButton = findViewById(R.id.button)
 
         setupView()
 
-//        motionButton.setOnClickListener {
-//            val intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        motionButton.setOnClickListener {
+            val intent = Intent(this@MotionActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     private fun setupView() {
@@ -38,4 +41,5 @@ class MotionActivity : AppCompatActivity() {
         }
         supportActionBar?.hide()
     }
+
 }

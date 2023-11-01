@@ -3,13 +3,10 @@ package com.app.tugaskelompok.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.tugaskelompok.R
-import com.app.tugaskelompok.ui.home.model.DataItem
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
@@ -61,9 +58,9 @@ class HomeAdapter(private val users: MutableList<DataItem>) :
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvUserName: TextView = itemView.findViewById(R.id.itemName)
-        var tvEmail: TextView = itemView.findViewById(R.id.itemEmail)
-        var ivAvatar: ImageView = itemView.findViewById(R.id.itemAvatar)
+        var tvUserName: TextView = itemView.findViewById(R.id.userName)
+        var tvEmail: TextView = itemView.findViewById(R.id.userContent)
+        var ivAvatar: ImageView = itemView.findViewById(R.id.profileImage)
 
     }
     fun filterUsers(query: String) {

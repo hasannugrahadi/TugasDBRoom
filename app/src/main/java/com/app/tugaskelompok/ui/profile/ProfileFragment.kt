@@ -9,14 +9,28 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.app.tugaskelompok.LoginActivity
 import com.app.tugaskelompok.databinding.FragmentProfileBinding
+import kotlinx.coroutines.launch
 
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
+
+    val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
+        name = "user"
+    )
+
+    private val USER_EMAIL = stringPreferencesKey("user_email")
+    private val USER_PASSWORD = stringPreferencesKey("user_password")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,11 +44,8 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val preferences = this.requireActivity()
-            .getSharedPreferences("UserData", Context.MODE_PRIVATE)
-
-        val userName = preferences.getString("userName", null)
-        val userEmail = preferences.getString("userEmail", null)
+        val userName = "Hasan"
+        val userEmail = "hasan@local.com"
         val userChar = userName?.first()
 
 
@@ -46,18 +57,14 @@ class ProfileFragment : Fragment() {
 
         val buttonLogout: Button = binding.logoutButton
         buttonLogout.setOnClickListener {
-            // Implement the logout logic here
-            // For Room database-based authentication, you would clear the user's session.
-
-            // For example, if you store the user's authentication state in shared preferences:
-            context?.getSharedPreferences("UserData", 0)?.edit()?.clear()?.commit();
-            // After logging out, navigate back to the login activity or any other desired destination
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish() // Close the profile activity or fragment
         }
 
         return root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

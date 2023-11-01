@@ -15,19 +15,4 @@ interface ApiService {
     @GET("api/users/{id}")
     fun getUser(@Path("id") id: String): Call<ResponseUser>
 
-    //post user using field x-www-form-urlencoded
-    @FormUrlEncoded
-    @POST("api/users")
-    fun createUser(
-        @Field("name") name: String,
-        @Field("job") job: String
-    ): Call<ResponseUser>
-
-    //upload file using multipart
-    @Multipart
-    @PUT("api/uploadfile")
-    fun updateUser(
-        @Part("file") file: MultipartBody.Part,
-        @PartMap data: Map<String, RequestBody>
-    ): Call<ResponseUser>
 }

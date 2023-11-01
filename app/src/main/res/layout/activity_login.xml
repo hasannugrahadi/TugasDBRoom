@@ -65,27 +65,6 @@
             android:text="LOGIN"
             android:background="@drawable/round_edit_text"
             android:textColor="@color/white"/>
-        <Button
-            android:id="@+id/google_login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login with Google"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/round_edit_text"
-            android:textColor="@color/black"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:gravity="center"
-            android:drawableStart="@drawable/common_google_signin_btn_icon_dark"
-            android:drawablePadding="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:elevation="4dp"
-            />
-
 
         <TextView
             android:id="@+id/openRegister"
