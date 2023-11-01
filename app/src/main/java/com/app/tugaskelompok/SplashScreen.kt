@@ -30,7 +30,8 @@ class SplashScreen : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                // User is not logged in, direct to the login page
+                // User is not logged in, direct to the motion page
+                // motion belum bisa di implement
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
