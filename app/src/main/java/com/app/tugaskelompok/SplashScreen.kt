@@ -60,15 +60,6 @@ class SplashScreen : AppCompatActivity() {
         }.launchIn(lifecycleScope)
     }
 
-    fun clearUserPreferences() {
-        lifecycleScope.launch {
-            userPreferencesDataStore.edit { preferences ->
-                preferences.remove(USER_EMAIL)
-                preferences.remove(USER_PASSWORD)
-            }
-        }
-    }
-
 
     private fun getUserFromPreferencesStore(): Flow<UserSession> = userPreferencesDataStore.data
         .map { preferences ->

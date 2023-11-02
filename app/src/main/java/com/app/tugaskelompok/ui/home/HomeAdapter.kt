@@ -1,85 +1,54 @@
 package com.app.tugaskelompok.ui.home
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.app.tugaskelompok.R
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
+import android.location.GnssAntennaInfo.Listener
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.app.tugaskelompok.databinding.ItemHomeBinding
+import com.app.tugaskelompok.ui.home.model.ResponseUserGithub
+import com.bumptech.glide.Glide
 
 
-class HomeAdapter(private val users: MutableList<DataItem>) :
-    RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
 
-    private val filteredUsers: MutableList<DataItem> = mutableListOf()
-    private var isFilterEmpty: Boolean = false
+class HomeAdapter(
+    private val data : MutableList<ResponseUserGithub.Item> = mutableListOf(),
+    private val listener : (ResponseUserGithub.Item) -> Unit
+) :
+    RecyclerView.Adapter<HomeAdapter.UserViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
-        return ListViewHolder(
-            view
-        )
-    }
-
-    fun addUser(newUsers: DataItem) {
-        users.add(newUsers)
-        notifyItemInserted(users.lastIndex)
-    }
-
-    fun clear() {
-        users.clear()
+    fun setData(data: MutableList<ResponseUserGithub.Item>) {
+        this.data.clear()
+        this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = if (filteredUsers.isNotEmpty()) filteredUsers.size else users.size
-
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        if (isFilterEmpty) {
-            holder.tvUserName.text = ""
-            holder.tvEmail.text = ""
-            holder.ivAvatar.setImageResource(R.color.white)
-        } else {
-            val user = if (filteredUsers.isNotEmpty()) filteredUsers[position] else users[position]
-
-            Glide.with(holder.itemView.context)
-                .load(user.avatar)
-                .apply(RequestOptions().override(80, 80).placeholder(R.drawable.icon_avatar))
-                .transform(CircleCrop())
-                .into(holder.ivAvatar)
-
-            holder.tvUserName.text = "${user.firstName} ${user.lastName}"
-            holder.tvEmail.text = user.email
+    class UserViewHolder(private val v: ItemHomeBinding) : RecyclerView.ViewHolder(v.root) {
+        fun bind(item: ResponseUserGithub.Item) {
+            // Menggunakan Glide untuk mengisi gambar pengguna
+            Glide.with(v.profileImage)
+                .load(item.avatar_url)
+                .circleCrop()
+                .into(v.profileImage)
+            v.userName.text = item.login
         }
     }
 
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvUserName: TextView = itemView.findViewById(R.id.userName)
-        var tvEmail: TextView = itemView.findViewById(R.id.userContent)
-        var ivAvatar: ImageView = itemView.findViewById(R.id.profileImage)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =
+        UserViewHolder(ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    }
-    fun filterUsers(query: String) {
-        filteredUsers.clear()
-        for (user in users) {
-            if (user.firstName?.toLowerCase()?.contains(query) == true ||
-                user.lastName?.toLowerCase()?.contains(query) == true ||
-                user.email?.toLowerCase()?.contains(query) == true
-            ) {
-                filteredUsers.add(user)
-            }
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        val item = data[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener{
+            listener(item)
         }
-        isFilterEmpty = filteredUsers.isEmpty()
-
-        notifyDataSetChanged()
     }
 
-    fun resetFilter() {
-        filteredUsers.clear()
-        notifyDataSetChanged()
-    }
+    override fun getItemCount(): Int = data.size
 }

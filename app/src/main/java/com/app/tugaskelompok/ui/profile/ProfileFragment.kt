@@ -15,22 +15,19 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.app.tugaskelompok.LoginActivity
+import com.app.tugaskelompok.MainActivity
 import com.app.tugaskelompok.databinding.FragmentProfileBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-
-    val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
-        name = "user"
-    )
-
-    private val USER_EMAIL = stringPreferencesKey("user_email")
-    private val USER_PASSWORD = stringPreferencesKey("user_password")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -57,13 +54,13 @@ class ProfileFragment : Fragment() {
 
         val buttonLogout: Button = binding.logoutButton
         buttonLogout.setOnClickListener {
+            (activity as MainActivity).clearUserPreferences()
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish() // Close the profile activity or fragment
         }
 
         return root
     }
-
 
 
     override fun onDestroyView() {

@@ -23,4 +23,10 @@
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
+    <fragment
+        android:id="@+id/navigation_detail_home"
+        android:name="com.app.tugaskelompok.ui.home.HomeDetailFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_home_detail" />
+
 </navigation>

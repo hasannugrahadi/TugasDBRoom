@@ -22,8 +22,6 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.app.tugaskelompok.database.UserDao
-import com.app.tugaskelompok.database.UserRoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,9 +37,6 @@ class LoginActivity : AppCompatActivity() {
 
     private val mAuth = FirebaseAuth.getInstance()
 
-    private lateinit var database: UserRoomDatabase
-    private lateinit var userDao: UserDao
-
     private val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
         name = "user"
     )
@@ -51,9 +46,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        database = UserRoomDatabase.getDatabase(applicationContext)
-        userDao = database.UserDao()
 
         usernameEditText = findViewById(R.id.login_username)
         passwordEditText = findViewById(R.id.login_password)
@@ -88,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-      private suspend fun saveUserToPreferencesStore(username : String, password : String) {
+    private suspend fun saveUserToPreferencesStore(username : String, password : String) {
         userPreferencesDataStore.edit { preferences ->
             preferences[USER_EMAIL] = username
             preferences[USER_PASSWORD] = password

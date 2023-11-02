@@ -84,6 +84,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
 
+    //coil
+    implementation("io.coil-kt:coil:1.4.0")
+
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$room_version")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

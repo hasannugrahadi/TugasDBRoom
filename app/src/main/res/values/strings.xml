@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TugasKelompok</string>
     <string name="title_home">Home</string>
+    <string name="title_home_detail">Detail</string>
     <string name="title_profile">Profile</string>
     <string name="title_notifications">Notifications</string>
     <string name="greeting_login">Selamat Datang\nSilahkan Masuk ke dalam Aplikasi</string>
@@ -22,4 +23,5 @@
     <string name="gambar_code_reviewer">Gambar Ujian Internasional</string>
     <string name="gambar_alumni_terpercaya">Gambar Alumni Universitas</string>
     <string name="gambar_dicoding">Toga Logo</string>
+    <string name="placeholder_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>
