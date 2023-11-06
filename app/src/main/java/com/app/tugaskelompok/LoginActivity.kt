@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.cancel
 
 class LoginActivity : AppCompatActivity() {
 
@@ -36,12 +37,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var registerText: TextView
 
     private val mAuth = FirebaseAuth.getInstance()
-
-    private val Context.userPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(
-        name = "user"
-    )
-    private val USER_EMAIL = stringPreferencesKey("user_email")
-    private val USER_PASSWORD = stringPreferencesKey("user_password")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +49,8 @@ class LoginActivity : AppCompatActivity() {
 
         passwordEditText.transformationMethod = AsteriskPasswordTransformationMethod()
 
+        val preferenceDataStore = PreferenceDataStore(this)
+
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -61,14 +58,17 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
-                        CoroutineScope(Dispatchers.IO).launch {
-                            saveUserToPreferencesStore(username, password)
+                        val user = FirebaseAuth.getInstance().currentUser
+                        val userId = user?.uid
+                        preferenceDataStore.saveValue1(username)
+                        if (userId != null) {
+                            preferenceDataStore.saveValue2(userId)
                         }
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
-                        Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Username atau password salah", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
@@ -79,13 +79,6 @@ class LoginActivity : AppCompatActivity() {
             }))
     }
 
-
-    private suspend fun saveUserToPreferencesStore(username : String, password : String) {
-        userPreferencesDataStore.edit { preferences ->
-            preferences[USER_EMAIL] = username
-            preferences[USER_PASSWORD] = password
-        }
-    }
 
     private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
         val spannableString = SpannableString(this.text)

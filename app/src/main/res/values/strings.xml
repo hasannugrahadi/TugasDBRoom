@@ -24,4 +24,6 @@
     <string name="gambar_alumni_terpercaya">Gambar Alumni Universitas</string>
     <string name="gambar_dicoding">Toga Logo</string>
     <string name="placeholder_lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+
+    <string name="github_token">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</string>
 </resources>

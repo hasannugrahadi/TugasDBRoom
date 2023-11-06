@@ -1,28 +1,26 @@
 package com.app.tugaskelompok.ui.profile
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.lifecycleScope
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.app.tugaskelompok.LoginActivity
-import com.app.tugaskelompok.MainActivity
+import com.app.tugaskelompok.PreferenceDataStore
 import com.app.tugaskelompok.databinding.FragmentProfileBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.app.tugaskelompok.model.ResponseUserDetail
+import com.app.tugaskelompok.network.ApiConfig
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ProfileFragment : Fragment() {
@@ -41,25 +39,63 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val userName = "Hasan"
-        val userEmail = "hasan@local.com"
-        val userChar = userName?.first()
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference("users")
+        val preferenceDataStore = PreferenceDataStore(requireContext())
 
-
-        binding.apply {
-            profileName.text = userName
-            profileEmail.text = userEmail
-            profileChar.text = userChar.toString()
+        val dataID = preferenceDataStore.getValue2()
+        if(dataID != null) {
+            val githubUsernameReference = reference.child(dataID).child("usergithub")
+            githubUsernameReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val githubUsername = dataSnapshot.getValue(String::class.java)
+                    if (githubUsername != null) {
+                        getUser(githubUsername)
+                    } else {
+                        // The user does not have a GitHub username stored in the database
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Toast.makeText(activity, "error database", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
-        val buttonLogout: Button = binding.logoutButton
-        buttonLogout.setOnClickListener {
-            (activity as MainActivity).clearUserPreferences()
+        binding.logoutButton.setOnClickListener {
+            preferenceDataStore.eraseValues()
             startActivity(Intent(requireContext(), LoginActivity::class.java))
-            requireActivity().finish() // Close the profile activity or fragment
+            requireActivity().finish()
         }
 
         return root
+    }
+
+    private fun getUser(usergit : String) {
+        val client = ApiConfig.getApiService().getUserDetails(usergit)
+        client.enqueue(object : Callback<ResponseUserDetail> {
+            override fun onResponse(call: Call<ResponseUserDetail>, response: Response<ResponseUserDetail>) {
+                if (response.isSuccessful) {
+                    val dataArray = response.body()
+                    if (dataArray != null) {
+                        binding.apply {
+                            profileImage.load(dataArray.avatarUrl) {
+                                transformations(CircleCropTransformation())
+                            }
+                            profileRealname.text = dataArray.name
+                            profileBio.text = dataArray.bio
+                            profileUsergithub.text = dataArray.login
+                            profileCompany.text = dataArray.company
+                            profileLocation.text = dataArray.location
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserDetail>, t: Throwable) {
+                Toast.makeText(activity, "error client.enqueue", Toast.LENGTH_SHORT).show()
+                t.printStackTrace()
+            }
+        })
     }
 
 

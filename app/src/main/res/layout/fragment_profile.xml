@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/layout_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white75"
+    android:background="@color/white"
     tools:context=".ui.profile.ProfileFragment">
 
     <LinearLayout
@@ -14,9 +20,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="48dp"
-        android:background="@drawable/linear_profile_bg"
-        android:layout_marginHorizontal="36dp"
+        android:padding="16dp"
+        android:background="@drawable/profile_bg"
+        android:layout_marginHorizontal="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,36 +30,103 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/profile_char"
+        <ImageView
+            android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/ic_profile_circle"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="72sp"
-            tools:gravity="center"
-            tools:text="n"
-            tools:textColor="@color/white" />
+            tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/profile_name"
+            android:id="@+id/profile_realname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
             android:textSize="20sp"
             tools:text="nama_usename" />
 
         <TextView
-            android:id="@+id/profile_email"
+            android:id="@+id/profile_bio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:textSize="16sp"
-            tools:text="username@local.com" />
+            android:textColor="@color/white"
+            android:layout_marginTop="4dp"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            tools:text="It's a beautiful day outside"/>
 
+        <TextView
+            android:id="@+id/profile_usergithub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/field_github"
+            android:textSize="16sp"
+            android:drawablePadding="8dp"
+            app:drawableLeftCompat="@drawable/github_invertocat_logo"
+            tools:text="hasannugrahadi" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_profile_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingHorizontal="24dp"
+        android:gravity="start"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/linear_profile">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="PERUSAHAAN : "
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:drawableLeftCompat="@drawable/baseline_work_24"
+            android:drawablePadding="4dp"/>
+
+        <TextView
+            android:id="@+id/profile_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="PT Jaya Negeri Impian"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="14dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="LOKASI : "
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:drawableLeftCompat="@drawable/baseline_location_city_24"
+            android:drawablePadding="4dp"/>
+
+        <TextView
+            android:id="@+id/profile_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            tools:text="Surabaya"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginVertical="14dp"/>
 
     </LinearLayout>
 
@@ -66,7 +139,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/linear_profile_bottom" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

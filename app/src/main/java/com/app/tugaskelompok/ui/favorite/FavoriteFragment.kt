@@ -41,17 +41,17 @@ class FavoriteFragment : Fragment() {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        recyclerView = requireView().findViewById(R.id.recycleViewer)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = FavoriteAdapter(emptyList())
-        recyclerView.adapter = adapter
-
-        db = Room.databaseBuilder(requireContext(), FavoriteRoomDatabase::class.java, "favorite_db").build()
-
-        val userList = loadFavoriteData()
-        adapter.userList = userList
-        adapter.notifyDataSetChanged()
-
+//        recyclerView = requireView().findViewById(R.id.recycleViewer)
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+//        adapter = FavoriteAdapter(emptyList())
+//        recyclerView.adapter = adapter
+//
+//        db = Room.databaseBuilder(requireContext(), FavoriteRoomDatabase::class.java, "favorite_db").build()
+//
+//        val userList = loadFavoriteData()
+//        adapter.userList = userList
+//        adapter.notifyDataSetChanged()
+//
 
         return root
 
