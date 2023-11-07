@@ -68,7 +68,7 @@
             android:textSize="14sp"
             android:drawablePadding="4dp"
             app:drawableLeftCompat="@drawable/github_invertocat_logo"
-            tools:text="hasannugrahadi" />
+            tools:text="mojombo" />
 
     </LinearLayout>
 

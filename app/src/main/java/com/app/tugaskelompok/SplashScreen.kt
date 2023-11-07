@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        val preferenceDataStore = PreferenceDataStore(this)
+        val preferenceDataStore = DataStore(this)
         val userEmail = preferenceDataStore.getValue1()
         val userUID = preferenceDataStore.getValue2()
 

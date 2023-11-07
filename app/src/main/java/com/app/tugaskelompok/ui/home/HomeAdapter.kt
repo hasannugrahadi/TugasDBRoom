@@ -1,5 +1,7 @@
 package com.app.tugaskelompok.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.tugaskelompok.model.ResponseUserItem
 import com.bumptech.glide.Glide
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
+class HomeAdapter(private val context: Context) : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
 
     private var userList: List<ResponseUserItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -41,6 +43,18 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.ListViewHolder>() {
             .into(holder.profileImage)
 
         holder.profileusername.text = user.login
+//        holder.button_fav.setOnClickListener {
+//            // Save the user to the Room database
+//            val userEntity = UserEntity(login = user.login, avatarUrl = user.avatarUrl)
+//            CoroutineScope(Dispatchers.IO).launch {
+//                userDao.insertUser(userEntity)
+//            }
+//        }
+        holder.profileusername.setOnClickListener {
+            val intent = Intent(context, HomeDetail::class.java)
+            intent.putExtra("username", user.login)
+            context.startActivity(intent)
+        }
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

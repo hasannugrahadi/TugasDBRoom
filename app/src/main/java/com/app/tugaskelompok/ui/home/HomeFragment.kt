@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        adapter = HomeAdapter()
+        adapter = HomeAdapter(requireContext())
 
         binding.recycleViewer.adapter = adapter
 

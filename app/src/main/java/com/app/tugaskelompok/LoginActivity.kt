@@ -1,6 +1,5 @@
 package com.app.tugaskelompok
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,17 +16,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.cancel
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
         passwordEditText.transformationMethod = AsteriskPasswordTransformationMethod()
 
-        val preferenceDataStore = PreferenceDataStore(this)
+        val preferenceDataStore = DataStore(this)
 
         loginButton.setOnClickListener {
             val username = usernameEditText.text.toString()

@@ -1,6 +1,5 @@
 package com.app.tugaskelompok.network
 
-import com.app.tugaskelompok.network.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

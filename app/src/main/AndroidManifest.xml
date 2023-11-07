@@ -41,6 +41,10 @@
             android:name=".MainActivity"
             android:launchMode="singleTask">
         </activity>
+        <activity
+            android:name=".ui.home.HomeDetail"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

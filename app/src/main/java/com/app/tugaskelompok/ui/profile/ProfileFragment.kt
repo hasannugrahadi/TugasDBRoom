@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.app.tugaskelompok.LoginActivity
-import com.app.tugaskelompok.PreferenceDataStore
+import com.app.tugaskelompok.DataStore
 import com.app.tugaskelompok.databinding.FragmentProfileBinding
 import com.app.tugaskelompok.model.ResponseUserDetail
 import com.app.tugaskelompok.network.ApiConfig
@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
 
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("users")
-        val preferenceDataStore = PreferenceDataStore(requireContext())
+        val preferenceDataStore = DataStore(requireContext())
 
         val dataID = preferenceDataStore.getValue2()
         if(dataID != null) {
@@ -52,7 +52,7 @@ class ProfileFragment : Fragment() {
                     if (githubUsername != null) {
                         getUser(githubUsername)
                     } else {
-                        // The user does not have a GitHub username stored in the database
+                        Toast.makeText(activity, "github account doesn't exists", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -97,7 +97,6 @@ class ProfileFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
