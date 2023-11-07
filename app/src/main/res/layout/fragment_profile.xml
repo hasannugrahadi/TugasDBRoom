@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="36dp"
         android:background="@drawable/profile_bg"
         android:layout_marginHorizontal="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,11 +62,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="16dp"
-            android:paddingVertical="12dp"
+            android:paddingVertical="8dp"
             android:paddingHorizontal="16dp"
             android:background="@drawable/field_github"
-            android:textSize="16sp"
-            android:drawablePadding="8dp"
+            android:textSize="14sp"
+            android:drawablePadding="4dp"
             app:drawableLeftCompat="@drawable/github_invertocat_logo"
             tools:text="hasannugrahadi" />
 

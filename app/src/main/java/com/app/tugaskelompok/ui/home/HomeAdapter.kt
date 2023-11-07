@@ -9,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.tugaskelompok.model.ResponseUser
 import com.app.tugaskelompok.model.ResponseUserItem
 import com.bumptech.glide.Glide
 

@@ -5,13 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.app.tugaskelompok.R
 import com.app.tugaskelompok.databinding.FragmentHomeBinding
-import com.app.tugaskelompok.model.ResponseUser
 import com.app.tugaskelompok.model.ResponseUserItem
 import com.app.tugaskelompok.network.ApiConfig
 import retrofit2.Call
@@ -21,6 +17,9 @@ import retrofit2.Response
 class HomeFragment : Fragment() {
 
     private lateinit var adapter: HomeAdapter
+
+    private lateinit var allUsersList: List<ResponseUserItem>
+    private var filteredUsersList: List<ResponseUserItem> = ArrayList()
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -39,6 +38,19 @@ class HomeFragment : Fragment() {
 
         binding.recycleViewer.adapter = adapter
 
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // Handle search query submission here if needed
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Handle search query changes here
+                filterUserList(newText)
+                return true
+            }
+        })
+
         getUser()
 
         return root
@@ -53,7 +65,9 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful) {
                     val dataArray = response.body()
                     if (dataArray != null) {
-                        dataArray?.let { adapter.setUserList(it) }
+                        allUsersList = dataArray
+                        filteredUsersList = allUsersList
+                        adapter.setUserList(filteredUsersList)
                     }
                 }
             }
@@ -62,6 +76,13 @@ class HomeFragment : Fragment() {
                 t.printStackTrace()
             }
         })
+    }
+
+    private fun filterUserList(query: String?) {
+        filteredUsersList = allUsersList.filter { user ->
+            user.login!!.contains(query.orEmpty(), ignoreCase = true)
+        }
+        adapter.setUserList(filteredUsersList)
     }
 
     override fun onDestroyView() {

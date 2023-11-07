@@ -62,6 +62,8 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+
+    //firebase
     implementation("com.google.firebase:firebase-auth:22.2.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
 
@@ -87,6 +89,7 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:1.4.0")
 
+    //JUnit
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.room:room-testing:$room_version")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
