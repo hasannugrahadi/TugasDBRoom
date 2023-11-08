@@ -1,16 +1,20 @@
 package com.app.tugaskelompok.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface FavoriteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(user: Favorite)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(user: Favorite)
+
+    @Query("SELECT * FROM Favorite WHERE login = :login")
+    fun getUserByLogin(login: String): Favorite?
+
+    @Query("DELETE FROM Favorite WHERE login = :login")
+    suspend fun deleteUserByLogin(login: String)
 
     @Query("SELECT * FROM Favorite")
-    suspend fun getAllUsers(): List<Favorite>
-
-    @Delete
-    suspend fun deleteUser(user: Favorite)
+    fun getAllUsers(): LiveData<List<Favorite>>
 
 }

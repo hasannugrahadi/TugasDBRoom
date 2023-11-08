@@ -47,12 +47,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
-                        val user = FirebaseAuth.getInstance().currentUser
-                        val userId = user?.uid
-                        preferenceDataStore.saveValue1(username)
-                        if (userId != null) {
-                            preferenceDataStore.saveValue2(userId)
-                        }
+                        preferenceDataStore.saveValue(true)
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()

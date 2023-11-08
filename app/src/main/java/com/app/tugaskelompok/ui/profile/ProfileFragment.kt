@@ -14,6 +14,7 @@ import com.app.tugaskelompok.DataStore
 import com.app.tugaskelompok.databinding.FragmentProfileBinding
 import com.app.tugaskelompok.model.ResponseUserDetail
 import com.app.tugaskelompok.network.ApiConfig
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -39,11 +40,15 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val auth = FirebaseAuth.getInstance()
+
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("users")
         val preferenceDataStore = DataStore(requireContext())
 
-        val dataID = preferenceDataStore.getValue2()
+        val user = auth.currentUser
+        val dataID = user?.uid
+
         if(dataID != null) {
             val githubUsernameReference = reference.child(dataID).child("usergithub")
             githubUsernameReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -62,6 +67,8 @@ class ProfileFragment : Fragment() {
         }
 
         binding.logoutButton.setOnClickListener {
+            auth.signOut()
+            Toast.makeText(activity, "Keluar", Toast.LENGTH_SHORT).show()
             preferenceDataStore.eraseValues()
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().finish()

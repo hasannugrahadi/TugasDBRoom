@@ -22,11 +22,10 @@ class SplashScreen : AppCompatActivity() {
         )
 
         val preferenceDataStore = DataStore(this)
-        val userEmail = preferenceDataStore.getValue1()
-        val userUID = preferenceDataStore.getValue2()
+        val isLoggedIn = preferenceDataStore.getValue()
 
         Handler(Looper.getMainLooper()).postDelayed({
-                if (userEmail != null && userUID != null) {
+                if (isLoggedIn == true) {
                     // User is already logged in, direct to the main activity
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

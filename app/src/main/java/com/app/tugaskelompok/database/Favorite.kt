@@ -13,10 +13,10 @@ data class Favorite (
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
-    @ColumnInfo(name = "username")
-    var username: String? = null,
+    @ColumnInfo(name = "login")
+    var login: String? = null,
 
-    @ColumnInfo(name = "avatar")
-    var avatar: String? = null,
+    @ColumnInfo(name = "avatarUrl")
+    var avatarUrl: String? = null,
 
 ) : Parcelable

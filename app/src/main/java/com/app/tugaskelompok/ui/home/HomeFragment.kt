@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import com.app.tugaskelompok.database.FavoriteDao
+import com.app.tugaskelompok.database.FavoriteDatabase
 import com.app.tugaskelompok.databinding.FragmentHomeBinding
 import com.app.tugaskelompok.model.ResponseUserItem
 import com.app.tugaskelompok.network.ApiConfig
@@ -20,6 +22,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var allUsersList: List<ResponseUserItem>
     private var filteredUsersList: List<ResponseUserItem> = ArrayList()
+    private lateinit var favoriteDao: FavoriteDao
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -34,7 +37,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        adapter = HomeAdapter(requireContext())
+        val favoriteDatabase = FavoriteDatabase.getInstance(requireContext())
+        favoriteDao = favoriteDatabase.favoriteDao()
+
+        adapter = HomeAdapter(requireContext(),favoriteDao)
 
         binding.recycleViewer.adapter = adapter
 
